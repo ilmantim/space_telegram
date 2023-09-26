@@ -18,15 +18,11 @@ def fetch_nasa_apod(count):
     url = "https://api.nasa.gov/planetary/apod"
     
     response = requests.get(url, params=params)  
+    response.raise_for_status()  
     
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()  
-        apod_json = response.json()
-        original_url = [picture["url"] for picture in apod_json]
-    except requests.exceptions.RequestException as e:
-        print("Error:", e)
-        return
+    apod_json = response.json()
+    original_url = [picture["url"] for picture in apod_json]
+   
     
     for index, image_url in enumerate(original_url, start=1):
         extension = get_file_extension(image_url)
@@ -44,11 +40,15 @@ if __name__ == "__main__":
     load_dotenv()
     token = os.getenv('NASA_TOKEN')
 
-    parser = argparse.ArgumentParser(description='Download NASA APOD images')
-    parser.add_argument('--count', help='Specify the number of images to download')
-    args = parser.parse_args()
+    try:
+        parser = argparse.ArgumentParser(description='Download NASA APOD images')
+        parser.add_argument('--count', help='Specify the number of images to download')
+        args = parser.parse_args()
         
-    fetch_nasa_apod(args.count)
+        fetch_nasa_apod(args.count)
+        
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
 
     
 
