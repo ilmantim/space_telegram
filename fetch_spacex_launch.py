@@ -14,8 +14,8 @@ def fetch_spacex_launch(launch_id):
     response = requests.get(launch_url)
     response.raise_for_status()
 
-    launch_data = response.json()
-    original_urls = get_original_image_urls(launch_data)
+    launch_json = response.json()
+    original_urls = get_original_image_urls(launch_json)
 
     if original_urls:
         download_images(original_urls, images_directory)

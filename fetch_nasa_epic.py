@@ -20,16 +20,16 @@ def fetch_nasa_epic(count):
         response = requests.get(url, params=params)  
         response.raise_for_status()
 
-        epic_data = response.json()
+        epic_json = response.json()
 
         download_urls = []  
 
-        for epic_data_item in epic_data:
+        for picture in epic_json:
             if count is None or len(download_urls) >= int(count): 
                 break
 
-            date = epic_data_item["date"]
-            image = epic_data_item["image"]
+            date = picture["date"]
+            image = picture["image"]
             
             year, month, day = date.split()[0].split('-')
         
