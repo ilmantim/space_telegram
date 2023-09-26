@@ -22,8 +22,8 @@ def fetch_nasa_apod(count):
     try:
         response = requests.get(url, params=params)
         response.raise_for_status()  
-        apod_data = response.json()
-        original_urls = [item["url"] for item in apod_data]
+        apod_json = response.json()
+        original_urls = [picture["url"] for picture in apod_json]
     except requests.exceptions.RequestException as e:
         print("Error:", e)
         return
