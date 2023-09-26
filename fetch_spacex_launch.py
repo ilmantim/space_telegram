@@ -53,7 +53,10 @@ def download_images(original_urls, images_directory):
         filename = f"image{index}{extension}"
         save_path = os.path.join(images_directory, filename)
 
-        result = download_image(image_url, save_path)
+        params = {
+        }
+
+        result = download_image(image_url, params, save_path)
 
         if result:
             print("Image was downloaded and saved successfully.")
@@ -62,15 +65,14 @@ def download_images(original_urls, images_directory):
 
 
 if __name__ == "__main__":
-    try:
         parser = argparse.ArgumentParser(description='Download SpaceX launch images')
         parser.add_argument('--launch_id', help='Specify the launch ID to download images from')
         args = parser.parse_args()
 
         fetch_spacex_launch(args.launch_id)
 
-    except requests.exceptions.RequestException as e:
-        print("Error:", e)
+
+   
 
 
 
