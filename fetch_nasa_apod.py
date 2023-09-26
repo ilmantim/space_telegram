@@ -29,12 +29,13 @@ def fetch_nasa_apod(count):
         filename = f"image{index}{extension}"
         save_path = os.path.join(images_directory, filename)
     
-        download_successful = download_image(image_url, save_path)
-        
-        if download_successful:
+        try:
+            download_image(image_url, save_path)
             print("Image was downloaded and saved successfully.")
-        else:
-            print("Image download failed.")
+            
+        except:
+             print(f"Image {index} download failed.")
+
 
 if __name__ == "__main__":
     load_dotenv()
@@ -49,7 +50,6 @@ if __name__ == "__main__":
         
     except requests.exceptions.RequestException as e:
         print("Error:", e)
-
     
 
 
