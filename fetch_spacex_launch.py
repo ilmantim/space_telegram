@@ -9,7 +9,7 @@ def fetch_spacex_launch(launch_id):
     images_directory = os.path.join(base_directory, "images")
     os.makedirs(images_directory, exist_ok=True)
 
-    launch_url = get_launch_url(launch_id)
+    launch_url = f"https://api.spacexdata.com/v5/launches/{launch_id}" if launch_id else "https://api.spacexdata.com/v5/launches/latest"
 
     response = requests.get(launch_url)
     response.raise_for_status()
@@ -33,13 +33,6 @@ def fetch_spacex_launch(launch_id):
             download_images(original_urls, images_directory)
         else:
             print("No photos found for the chosen launch.")
-
-
-def get_launch_url(launch_id):
-    if launch_id:
-        return f"https://api.spacexdata.com/v5/launches/{launch_id}"
-    else:
-        return "https://api.spacexdata.com/v5/launches/latest"
 
 
 def get_original_image_urls(launch_data):
