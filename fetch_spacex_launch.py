@@ -22,7 +22,7 @@ def fetch_spacex_launch(launch_id):
     else:
         print("No photos found for the latest launch. Trying a different launch...")
 
-        launch_url = "https://api.spacexdata.com/v5/launches/5eb87d47ffd86e000604b38a"
+        launch_url = "https://api.spacexdata.com/v5/launches/latest"
         response = requests.get(launch_url)
         response.raise_for_status()
 
