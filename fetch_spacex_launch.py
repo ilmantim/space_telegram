@@ -9,30 +9,22 @@ def fetch_spacex_launch(launch_id):
     images_directory = os.path.join(base_directory, "images")
     os.makedirs(images_directory, exist_ok=True)
 
-    launch_url = f"https://api.spacexdata.com/v5/launches/{launch_id}" if launch_id else "https://api.spacexdata.com/v5/launches/latest"
-
-    response = requests.get(launch_url)
-    response.raise_for_status()
-
-    launch_json = response.json()
-    original_urls = get_original_image_urls(launch_json)
-
-    if original_urls:
-        download_images(original_urls, images_directory)
+    if launch_id:
+        launch_url = f"https://api.spacexdata.com/v5/launches/{launch_id}"
     else:
-        print("No photos found for the latest launch. Trying a different launch...")
-
         launch_url = "https://api.spacexdata.com/v5/launches/latest"
+
+    try:
         response = requests.get(launch_url)
         response.raise_for_status()
 
-        launches = response.json()
-        original_urls = get_original_image_urls(launches)
+        launch_json = response.json()
+        original_urls = get_original_image_urls(launch_json)
 
-        if original_urls:
-            download_images(original_urls, images_directory)
-        else:
-            print("No photos found for the chosen launch.")
+        download_images(original_urls, images_directory)
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching SpaceX launch data: {e}")
 
 
 def get_original_image_urls(launch_data):
