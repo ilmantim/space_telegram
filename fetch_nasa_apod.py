@@ -30,7 +30,7 @@ def fetch_nasa_apod(count):
         save_path = os.path.join(images_directory, filename)
     
         try:
-            download_image(image_url, save_path)
+            download_image(image_url, params, save_path)
             print("Image was downloaded and saved successfully.")
             
         except:

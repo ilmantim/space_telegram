@@ -31,7 +31,7 @@ def fetch_nasa_epic(count):
         
         year, month, day = date.split()[0].split('-')
     
-        download_url = f"https://api.nasa.gov/EPIC/archive/natural/{year}/{month}/{day}/png/{image}.png?api_key={params['api_key']}"
+        download_url = f"https://api.nasa.gov/EPIC/archive/natural/{year}/{month}/{day}/png/{image}.png"
         download_urls.append(download_url)  
     
     for index, image_url in enumerate(download_urls, start=1):
@@ -40,7 +40,7 @@ def fetch_nasa_epic(count):
         save_path = os.path.join(images_directory, filename)
 
         try:
-            download_image(image_url, save_path)
+            download_image(image_url, params, save_path)
             print("Image was downloaded and saved successfully.")
             
         except:
