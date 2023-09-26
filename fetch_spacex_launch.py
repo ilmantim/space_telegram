@@ -3,7 +3,6 @@ import requests
 import argparse
 from common_functions import get_file_extension, download_image
 
-
 def fetch_spacex_launch(launch_id):
     base_directory = os.path.dirname(os.path.abspath(__file__))
     images_directory = os.path.join(base_directory, "images")
@@ -19,17 +18,13 @@ def fetch_spacex_launch(launch_id):
         response.raise_for_status()
 
         launch_json = response.json()
-        original_urls = get_original_image_urls(launch_json)
+        flickr_links = launch_json["links"]["flickr"]
+        original_urls = flickr_links.get("original")
 
         download_images(original_urls, images_directory)
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching SpaceX launch data: {e}")
-
-
-def get_original_image_urls(launch_data):
-    flickr_links = launch_data["links"]["flickr"]
-    return flickr_links.get("original")
 
 
 def download_images(original_urls, images_directory):
@@ -50,11 +45,12 @@ def download_images(original_urls, images_directory):
 
 
 if __name__ == "__main__":
-        parser = argparse.ArgumentParser(description='Download SpaceX launch images')
-        parser.add_argument('--launch_id', help='Specify the launch ID to download images from')
-        args = parser.parse_args()
+    parser = argparse.ArgumentParser(description='Download SpaceX launch images')
+    parser.add_argument('--launch_id', help='Specify the launch ID to download images from')
+    args = parser.parse_args()
 
-        fetch_spacex_launch(args.launch_id)
+    fetch_spacex_launch(args.launch_id)
+
 
 
    
