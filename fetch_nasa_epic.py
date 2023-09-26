@@ -21,20 +21,20 @@ def fetch_nasa_epic(count):
 
     epic_json = response.json()
 
-    download_urls = []  
+    picture_urls = []  
     
     for picture in epic_json:
-        if count is None or len(download_urls) >= int(count): 
+        if count is None or len(picture_urls) >= int(count): 
             break
         date = picture["date"]
         image = picture["image"]
         
         year, month, day = date.split()[0].split('-')
     
-        download_url = f"https://api.nasa.gov/EPIC/archive/natural/{year}/{month}/{day}/png/{image}.png"
-        download_urls.append(download_url)  
+        picture_url = f"https://api.nasa.gov/EPIC/archive/natural/{year}/{month}/{day}/png/{image}.png"
+        picture_urls.append(picture_url)  
     
-    for index, image_url in enumerate(download_urls, start=1):
+    for index, image_url in enumerate(picture_urls, start=1):
         extension = get_file_extension(image_url)
         filename = f"image{index}{extension}"
         save_path = os.path.join(images_directory, filename)
