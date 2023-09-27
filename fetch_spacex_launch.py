@@ -27,14 +27,11 @@ def fetch_spacex_launch(launch_id):
         print(f"Error fetching SpaceX launch data: {e}")
 
 
-def download_images(original_urls, images_directory):
+def download_images(original_urls, images_directory, params=None):
     for index, image_url in enumerate(original_urls, start=1):
         extension = get_file_extension(image_url)
         filename = f"image{index}{extension}"
         save_path = os.path.join(images_directory, filename)
-
-        params = {
-        }
 
         result = download_image(image_url, params, save_path)
 
