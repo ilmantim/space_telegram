@@ -6,18 +6,7 @@ from common_functions import get_image_files
 from dotenv import load_dotenv
 
 
-def publish_image(directory, chat_id, bot, image_path=None):
-    if image_path:
-        with open(image_path, 'rb') as photo:
-            bot.send_photo(chat_id=chat_id, photo=photo)
-    else:
-        images = get_image_files(directory)
-        if not images:
-            return None  
-
-        random_image = random.choice(images)
-        with open(random_image, 'rb') as photo:
-            bot.send_photo(chat_id=chat_id, photo=photo)
+publish = lambda image_path, chat_id, bot: bot.send_photo(chat_id=chat_id, photo=open(image_path, 'rb'))
 
 
 if __name__ == "__main__":
@@ -33,18 +22,15 @@ if __name__ == "__main__":
 
 
     if args.image:
-        publish_image(args.image, chat_id, bot)
+        publish(args.image, chat_id, bot)
     else:
         directory = './images'
-        result = publish_image(directory, chat_id, bot)
-        if result is None:
-            print("There is no specific image input, publish random")
+        images = get_image_files(directory)
+        if not images:
+            print("No images found in the directory.")
         else:
-            print("Image was published successfully.")  
-
-
-
-
+            random_image = random.choice(images)
+            publish(random_image, chat_id, bot)
 
 
 
