@@ -3,6 +3,7 @@ import requests
 import argparse
 from common_functions import get_file_extension, download_image
 
+
 def fetch_spacex_launch(launch_id):
     base_directory = os.path.dirname(os.path.abspath(__file__))
     images_directory = os.path.join(base_directory, "images")
