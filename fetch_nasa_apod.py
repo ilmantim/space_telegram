@@ -29,12 +29,8 @@ def fetch_nasa_apod(count, token):
         filename = f"image{index}{extension}"
         save_path = os.path.join(images_directory, filename)
     
-        try:
-            download_image(image_url, params, save_path)
-            print("Image was downloaded and saved successfully.")
-            
-        except:
-             print(f"Image {index} download failed.")
+        download_image(image_url, params, save_path)
+        print("Image was downloaded and saved successfully.")
 
 
 def main():
@@ -45,7 +41,10 @@ def main():
     parser.add_argument('--count', help='Specify the number of images to download')
     args = parser.parse_args()
     
-    fetch_nasa_apod(args.count, token)
+    try:
+        fetch_nasa_apod(args.count, token)
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
         
 
 if __name__ == "__main__":

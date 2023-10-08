@@ -18,19 +18,18 @@ if __name__ == "__main__":
     parser.add_argument('--image', help='Path to the image file to publish')
     args = parser.parse_args()
 
-    try:
-        if args.image:
-            publish(args.image, chat_id, bot)
+    if args.image:
+        publish(args.image, chat_id, bot)
+    else:
+        directory = './images'
+        images = get_image_files(directory)
+        
+        if not images:
+            print("No images found in the directory.")
         else:
-            directory = './images'
-            images = get_image_files(directory)
-            if not images:
-                print("No images found in the directory.")
-            else:
-                random_image = random.choice(images)
-                publish(random_image, chat_id, bot)
-    except Exception as e:
-        print(f"Error: {e}")
+            random_image = random.choice(images)
+            publish(random_image, chat_id, bot)
+  
 
 
 
