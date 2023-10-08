@@ -5,8 +5,11 @@ import telegram
 from common_functions import get_image_files
 from dotenv import load_dotenv
 
+
 def publish_image(image_path, chat_id, bot):
-    bot.send_photo(chat_id=chat_id, photo=open(image_path, 'rb'))
+    with open(image_path, 'rb') as file:
+        bot.send_photo(chat_id=chat_id, photo=file.read())
+
 
 def main():
     load_dotenv()
@@ -30,6 +33,7 @@ def main():
         else:
             random_image = random.choice(images)
             publish_image(random_image, chat_id, bot)
+
 
 if __name__ == "__main__":
     main()
