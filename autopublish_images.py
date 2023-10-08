@@ -7,7 +7,9 @@ import telegram
 from common_functions import get_image_files
 
 
-def autopublish_images(chat_id, publish_interval):
+def autopublish_images(chat_id, publish_interval, token):
+    bot = telegram.Bot(token)
+
     base_directory =  os.path.dirname(os.path.abspath(__file__))
     directory = os.path.join(base_directory, "images")
     
@@ -21,13 +23,14 @@ def autopublish_images(chat_id, publish_interval):
             time.sleep(publish_interval)
 
 
-if __name__ == "__main__":
+def main():
     load_dotenv()
     token = os.getenv('TELEGRAM_TOKEN')
     chat_id = os.getenv('TG_CHAT_ID')
-
-    bot = telegram.Bot(token)
-    
     publish_interval = int(os.getenv('PUBLISH_INTERVAL'))
 
-    autopublish_images(chat_id,publish_interval)
+    autopublish_images(chat_id,publish_interval,token)
+
+
+if __name__ == "__main__":
+    main()
