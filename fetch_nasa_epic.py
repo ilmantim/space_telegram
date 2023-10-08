@@ -19,11 +19,11 @@ def fetch_nasa_epic(count, token):
     response = requests.get(url, params=params)  
     response.raise_for_status()
 
-    epic_json = response.json()
+    epic_pictures = response.json()
 
     picture_urls = []  
     
-    for picture in epic_json:
+    for picture in epic_pictures:
         if count is None or len(picture_urls) >= int(count): 
             break
         date = picture["date"]

@@ -20,8 +20,8 @@ def fetch_nasa_apod(count, token):
     response = requests.get(url, params=params)  
     response.raise_for_status()  
     
-    apod_json = response.json()
-    original_url = [picture["url"] for picture in apod_json]
+    apod_pictures = response.json()
+    original_url = [picture["url"] for picture in apod_pictures]
    
     
     for index, image_url in enumerate(original_url, start=1):

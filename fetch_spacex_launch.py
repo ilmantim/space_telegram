@@ -16,9 +16,9 @@ def fetch_spacex_launch(launch_id):
 
     response = requests.get(launch_url)
     response.raise_for_status()
-    launch_json = response.json()
+    launch_pictures= response.json()
 
-    flickr_links = launch_json["links"]["flickr"]
+    flickr_links = launch_pictures["links"]["flickr"]
     original_urls = flickr_links.get("original")
 
     download_images(original_urls, images_directory)
