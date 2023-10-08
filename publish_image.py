@@ -5,9 +5,10 @@ import telegram
 from common_functions import get_image_files
 from dotenv import load_dotenv
 
-publish = lambda image_path, chat_id, bot: bot.send_photo(chat_id=chat_id, photo=open(image_path, 'rb'))
+def publish_image(image_path, chat_id, bot):
+    bot.send_photo(chat_id=chat_id, photo=open(image_path, 'rb'))
 
-if __name__ == "__main__":
+def main():
     load_dotenv()
     token = os.getenv('TELEGRAM_TOKEN')
     chat_id = os.getenv('TG_CHAT_ID')
@@ -19,7 +20,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.image:
-        publish(args.image, chat_id, bot)
+        publish_image(args.image, chat_id, bot)
     else:
         directory = './images'
         images = get_image_files(directory)
@@ -28,7 +29,11 @@ if __name__ == "__main__":
             print("No images found in the directory.")
         else:
             random_image = random.choice(images)
-            publish(random_image, chat_id, bot)
+            publish_image(random_image, chat_id, bot)
+
+if __name__ == "__main__":
+    main()
+
   
 
 
