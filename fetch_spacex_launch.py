@@ -3,6 +3,7 @@ import requests
 import argparse
 from common_functions import get_file_extension, download_image
 
+
 def fetch_spacex_launch(launch_id):
     base_directory = os.path.dirname(os.path.abspath(__file__))
     images_directory = os.path.join(base_directory, "images")
@@ -19,6 +20,7 @@ def fetch_spacex_launch(launch_id):
     downloaded_images = download_images(original_urls)
     save_images(downloaded_images, images_directory)
 
+
 def download_images(original_urls, params=None):
     downloaded_images = []
     for index, image_url in enumerate(original_urls, start=1):
@@ -30,9 +32,10 @@ def download_images(original_urls, params=None):
             downloaded_images.append((image_data, filename))
             print(f"Image {index} downloaded successfully.")
         except:
-            print(f"Image {index} download failed.")
+            print(f"Image {index} download failed: Empty response.")
 
     return downloaded_images
+
 
 def save_images(images, save_directory):
     for image_data, filename in images:
@@ -40,11 +43,16 @@ def save_images(images, save_directory):
         with open(save_path, "wb") as file:
             file.write(image_data)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Download SpaceX launch images')
     parser.add_argument('--launch_id', default='latest', help='Specify the launch ID to download images from')
     args = parser.parse_args()
-    fetch_spacex_launch(args.launch_id)
+    
+    try:
+        fetch_spacex_launch(args.launch_id)
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
 
 
 
