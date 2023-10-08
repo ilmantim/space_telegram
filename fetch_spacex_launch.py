@@ -9,11 +9,7 @@ def fetch_spacex_launch(launch_id):
     images_directory = os.path.join(base_directory, "images")
     os.makedirs(images_directory, exist_ok=True)
 
-    if launch_id:
-        launch_url = f"https://api.spacexdata.com/v5/launches/{launch_id}"
-    else:
-        launch_url = "https://api.spacexdata.com/v5/launches/latest"
-
+    launch_url = f"https://api.spacexdata.com/v5/launches/{launch_id}"
     response = requests.get(launch_url)
     response.raise_for_status()
     launch_pictures= response.json()
@@ -40,7 +36,7 @@ def download_images(original_urls, images_directory, params=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Download SpaceX launch images')
-    parser.add_argument('--launch_id', help='Specify the launch ID to download images from')
+    parser.add_argument('--launch_id', default='latest', help='Specify the launch ID to download images from')
     args = parser.parse_args()
 
     fetch_spacex_launch(args.launch_id)
