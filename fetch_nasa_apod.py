@@ -21,10 +21,10 @@ def fetch_nasa_apod(count, token):
     response.raise_for_status()  
     
     apod_pictures = response.json()
-    original_url = [picture["url"] for picture in apod_pictures]
+    original_urls = [picture["url"] for picture in apod_pictures]
    
     
-    for index, image_url in enumerate(original_url, start=1):
+    for index, image_url in enumerate(original_urls, start=1):
         extension = get_file_extension(image_url)
         filename = f"image{index}{extension}"
         save_path = os.path.join(images_directory, filename)
