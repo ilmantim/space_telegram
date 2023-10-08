@@ -41,16 +41,12 @@ def main():
     load_dotenv()
     token = os.getenv('NASA_TOKEN')
 
-    try:
-        parser = argparse.ArgumentParser(description='Download NASA APOD images')
-        parser.add_argument('--count', help='Specify the number of images to download')
-        args = parser.parse_args()
+    parser = argparse.ArgumentParser(description='Download NASA APOD images')
+    parser.add_argument('--count', help='Specify the number of images to download')
+    args = parser.parse_args()
+    
+    fetch_nasa_apod(args.count, token)
         
-        fetch_nasa_apod(args.count, token)
-        
-    except requests.exceptions.RequestException as e:
-        print("Error:", e)
-
 
 if __name__ == "__main__":
     main()

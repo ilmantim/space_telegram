@@ -50,15 +50,11 @@ def main():
     load_dotenv()
     token = os.getenv('NASA_TOKEN')
 
-    try:                  
-        parser = argparse.ArgumentParser(description='Download NASA EPIC images')
-        parser.add_argument('--count', help='Specify the number of images to download')
-        args = parser.parse_args()
-        
-        fetch_nasa_epic(args.count, token) 
-
-    except requests.exceptions.RequestException as e:
-        print("Error:", e)
+    parser = argparse.ArgumentParser(description='Download NASA EPIC images')
+    parser.add_argument('--count', help='Specify the number of images to download')
+    args = parser.parse_args()
+    
+    fetch_nasa_epic(args.count, token) 
 
 
 if __name__ == "__main__":

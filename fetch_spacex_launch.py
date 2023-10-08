@@ -14,18 +14,14 @@ def fetch_spacex_launch(launch_id):
     else:
         launch_url = "https://api.spacexdata.com/v5/launches/latest"
 
-    try:
-        response = requests.get(launch_url)
-        response.raise_for_status()
+    response = requests.get(launch_url)
+    response.raise_for_status()
+    launch_json = response.json()
 
-        launch_json = response.json()
-        flickr_links = launch_json["links"]["flickr"]
-        original_urls = flickr_links.get("original")
+    flickr_links = launch_json["links"]["flickr"]
+    original_urls = flickr_links.get("original")
 
-        download_images(original_urls, images_directory)
-
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching SpaceX launch data: {e}")
+    download_images(original_urls, images_directory)
 
 
 def download_images(original_urls, images_directory, params=None):
