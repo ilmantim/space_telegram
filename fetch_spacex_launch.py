@@ -17,24 +17,16 @@ def fetch_spacex_launch(launch_id):
     flickr_links = launch_pictures["links"]["flickr"]
     original_urls = flickr_links.get("original")
 
-    downloaded_images = download_images(original_urls)
-    save_images(downloaded_images, images_directory)
-
-
-def download_images(original_urls, params=None):
-    downloaded_images = []
     for index, image_url in enumerate(original_urls, start=1):
         extension = get_file_extension(image_url)
         filename = f"image{index}{extension}"
 
         try:
-            image_data = download_image(image_url, params)
-            downloaded_images.append((image_data, filename))
+            image_data = download_image(image_url)
+            save_images(image_data, images_directory)
             print(f"Image {index} downloaded successfully.")
         except:
             print(f"Image {index} download failed: Empty response.")
-
-    return downloaded_images
 
 
 def save_images(images, save_directory):
@@ -50,9 +42,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     fetch_spacex_launch(args.launch_id)
-
-
-
 
 
 
