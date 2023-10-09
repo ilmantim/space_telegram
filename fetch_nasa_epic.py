@@ -48,7 +48,7 @@ def main():
     token = os.getenv('NASA_TOKEN')
 
     parser = argparse.ArgumentParser(description='Download NASA EPIC images')
-    parser.add_argument('--count', help='Specify the number of images to download')
+    parser.add_argument('--count', default=10, help='Specify the number of images to download')
     args = parser.parse_args()
     
     fetch_nasa_epic(args.count, token)

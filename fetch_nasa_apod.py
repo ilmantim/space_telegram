@@ -38,7 +38,7 @@ def main():
     token = os.getenv('NASA_TOKEN')
 
     parser = argparse.ArgumentParser(description='Download NASA APOD images')
-    parser.add_argument('--count', help='Specify the number of images to download')
+    parser.add_argument('--count', default=5, help='Specify the number of images to download')
     args = parser.parse_args()
     
     fetch_nasa_apod(args.count, token)
