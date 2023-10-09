@@ -41,17 +41,11 @@ def main():
     parser.add_argument('--count', help='Specify the number of images to download')
     args = parser.parse_args()
     
-    try:
-        fetch_nasa_apod(args.count, token)
-    except requests.exceptions.RequestException as e:
-        print("Error:", e)
-        
+    fetch_nasa_apod(args.count, token)
 
+        
 if __name__ == "__main__":
     main()
-
-
-
 
 
 

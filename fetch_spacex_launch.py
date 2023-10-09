@@ -49,10 +49,8 @@ if __name__ == "__main__":
     parser.add_argument('--launch_id', default='latest', help='Specify the launch ID to download images from')
     args = parser.parse_args()
     
-    try:
-        fetch_spacex_launch(args.launch_id)
-    except requests.exceptions.RequestException as e:
-        print("Error:", e)
+    fetch_spacex_launch(args.launch_id)
+
 
 
 
