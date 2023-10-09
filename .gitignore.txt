@@ -10,6 +10,7 @@ venv/
 poetry.lock
 .replit
 pyproject.toml
+python
 pyvenv.cfg
 replit.nix
 replit_zip_error_log.txt
@@ -21,4 +22,4 @@ __pycache__/
 .idea/
 Thumbs.db
 .DS_Store
-.gitattributes
+
