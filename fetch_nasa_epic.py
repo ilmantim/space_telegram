@@ -24,7 +24,7 @@ def fetch_nasa_epic(count, token):
     picture_urls = []  
     
     for picture in epic_pictures:
-        if count and len(picture_urls) >= int(count): 
+        if not count or len(picture_urls) >= int(count): 
             break
         date = picture["date"]
         image = picture["image"]
