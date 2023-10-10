@@ -20,13 +20,10 @@ def fetch_spacex_launch(launch_id):
     for index, image_url in enumerate(original_urls, start=1):
         extension = get_file_extension(image_url)
         filename = f"image{index}{extension}"
-
-        try:
-            image_data = download_image(image_url)
-            save_images(image_data, images_directory)
-            print(f"Image {index} downloaded successfully.")
-        except:
-            print(f"Image {index} download failed: Empty response.")
+  
+        image_data = download_image(image_url)
+        save_images(image_data, images_directory)
+        print(f"Image {index} downloaded successfully.")
 
 
 def save_images(images, save_directory):
