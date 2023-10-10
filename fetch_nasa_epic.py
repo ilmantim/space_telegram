@@ -39,7 +39,7 @@ def fetch_nasa_epic(count, token):
         filename = f"image{index}{extension}"
         save_path = os.path.join(images_directory, filename)
 
-        download_image(image_url, params, save_path)
+        download_image(image_url, save_path, params)
         print("Image was downloaded and saved successfully.")
             
 

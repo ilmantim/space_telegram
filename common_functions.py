@@ -11,7 +11,7 @@ def get_file_extension(url):
     return extension
 
 
-def download_image(image_url, params, save_path):
+def download_image(image_url, save_path, params):
     response = requests.get(image_url, params=params)
     response.raise_for_status()
 

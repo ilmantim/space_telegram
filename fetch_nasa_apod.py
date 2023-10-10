@@ -23,13 +23,12 @@ def fetch_nasa_apod(count, token):
     apod_pictures = response.json()
     original_urls = [picture["url"] for picture in apod_pictures]
    
-    
     for index, image_url in enumerate(original_urls, start=1):
         extension = get_file_extension(image_url)
         filename = f"image{index}{extension}"
         save_path = os.path.join(images_directory, filename)
     
-        download_image(image_url, params, save_path)
+        download_image(image_url, save_path, params)
         print("Image was downloaded and saved successfully.")
 
 

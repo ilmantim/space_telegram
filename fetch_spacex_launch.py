@@ -20,17 +20,10 @@ def fetch_spacex_launch(launch_id):
     for index, image_url in enumerate(original_urls, start=1):
         extension = get_file_extension(image_url)
         filename = f"image{index}{extension}"
-  
-        image_data = download_image(image_url)
-        save_images(image_data, images_directory)
+        save_path = os.path.join(images_directory, filename)
+                                 
+        download_image(image_url, save_path, params=None)
         print(f"Image {index} downloaded successfully.")
-
-
-def save_images(images, save_directory):
-    for image_data, filename in images:
-        save_path = os.path.join(save_directory, filename)
-        with open(save_path, "wb") as file:
-            file.write(image_data)
 
 
 if __name__ == "__main__":
